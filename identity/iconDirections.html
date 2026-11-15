@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ThorHub — иконка</title>
+<style>
+  :root { --bg:#f4f4f6; --fg:#15171c; --muted:#6b7080; --card:#fff; --line:#e3e4ea; }
+  body { margin:0; font:16px/1.45 system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--fg); }
+  main { max-width:1100px; margin:0 auto; padding:32px 16px 64px; }
+  h1 { font-size:28px; margin:0 0 4px; }
+  .lead { color:var(--muted); margin:0 0 32px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; margin-bottom:24px; }
+  h2 { margin:0 0 4px; font-size:22px; }
+  .idea { color:var(--muted); margin:0 0 20px; white-space:pre-line; }
+  .row { display:flex; flex-wrap:wrap; gap:24px; align-items:flex-end; }
+  .tile { display:flex; flex-direction:column; align-items:center; gap:8px; font-size:12px; color:var(--muted); }
+  .pad { padding:16px; border-radius:12px; display:flex; gap:16px; align-items:flex-end; }
+  .light { background:#ffffff; border:1px solid var(--line); }
+  .dark { background:#0d0e12; }
+  .mono svg { filter:grayscale(1) contrast(1.4); }
+  .risk { margin-top:16px; font-size:14px; }
+  .risk b { color:#b4231b; }
+  .plus b { color:#1d7a3a; }
+</style>
+</head>
+<body>
+<main>
+<h1>ThorHub — иконка, три направления</h1>
+<p class="lead">Эскизы для выбора: размер 240, 48 и 16 px на светлом и тёмном, плюс монохром. Выбранное потом строится заново генератором.</p>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- А. Руна Þ -->
+    <symbol id="a" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="22" fill="#14161c"/>
+      <path d="M36 20 V80" stroke="#ffb020" stroke-width="11" stroke-linecap="round"/>
+      <path d="M36 33 H52 a17 17 0 0 1 0 34 H36" fill="none" stroke="#ffb020" stroke-width="11" stroke-linejoin="round"/>
+      <circle cx="52" cy="50" r="5.5" fill="#3fd0ff"/>
+    </symbol>
+    <!-- Б. Два экрана и молния -->
+    <symbol id="b" viewBox="0 0 100 100">
+      <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#0b1530"/></linearGradient></defs>
+      <rect width="100" height="100" rx="22" fill="url(#bg)"/>
+      <rect x="17" y="15" width="66" height="39" rx="7" fill="#e8f0ff"/>
+      <rect x="26" y="60" width="48" height="26" rx="6" fill="#e8f0ff" opacity=".85"/>
+      <polygon points="57,20 37,47 50,47 42,82 66,50 53,50 63,20" fill="#ffd23f" stroke="#12245e" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+    <!-- В. Молот-геймпад -->
+    <symbol id="c" viewBox="0 0 100 100">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a36"/><stop offset="1" stop-color="#9b1d3a"/></linearGradient></defs>
+      <rect width="100" height="100" rx="22" fill="url(#cg)"/>
+      <rect x="44" y="50" width="12" height="36" rx="5" fill="#f7efe4"/>
+      <rect x="15" y="20" width="70" height="32" rx="16" fill="#f7efe4"/>
+      <path d="M27 36 h10 M32 31 v10" stroke="#9b1d3a" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="66" cy="32" r="3.4" fill="#9b1d3a"/>
+      <circle cx="73" cy="39" r="3.4" fill="#9b1d3a"/>
+    </symbol>
+  </defs>
+</svg>
+
+<section>
+  <h2>А. Руна Þ</h2>
+  <p class="idea">Þ — древняя руна «торн», ею пишется звук «Th» в имени Thor.
+  Ствол с петлёй читается и как буква, и как узел-хаб: точка в петле — место, где сходятся игры.
+  Без молота и без комиксов, знак свой.</p>
+  <div class="row">
+    <div class="pad light"><div class="tile"><svg width="240" height="240"><use href="#a"/></svg>240</div><div class="tile"><svg width="48" height="48"><use href="#a"/></svg>48</div><div class="tile"><svg width="16" height="16"><use href="#a"/></svg>16</div></div>
+    <div class="pad dark"><div class="tile"><svg width="48" height="48"><use href="#a"/></svg>48</div><div class="tile"><svg width="16" height="16"><use href="#a"/></svg>16</div></div>
+    <div class="pad light mono"><div class="tile"><svg width="48" height="48"><use href="#a"/></svg>моно</div></div>
+  </div>
+  <p class="risk plus"><b>+</b> Узнаётся на 16 px, ни на кого не похож, легко повторить в лоадере и прогрессе</p>
+  <p class="risk"><b>−</b> Руну знают не все: смысл надо один раз объяснить</p>
+</section>
+
+<section>
+  <h2>Б. Два экрана</h2>
+  <p class="idea">Силуэт самого Thor: большой экран сверху, маленький снизу.
+  Молния прошивает оба: игра на верхнем, управление на нижнем.</p>
+  <div class="row">
+    <div class="pad light"><div class="tile"><svg width="240" height="240"><use href="#b"/></svg>240</div><div class="tile"><svg width="48" height="48"><use href="#b"/></svg>48</div><div class="tile"><svg width="16" height="16"><use href="#b"/></svg>16</div></div>
+    <div class="pad dark"><div class="tile"><svg width="48" height="48"><use href="#b"/></svg>48</div><div class="tile"><svg width="16" height="16"><use href="#b"/></svg>16</div></div>
+    <div class="pad light mono"><div class="tile"><svg width="48" height="48"><use href="#b"/></svg>моно</div></div>
+  </div>
+  <p class="risk plus"><b>+</b> Сразу говорит «это для двухэкранного Thor»</p>
+  <p class="risk"><b>−</b> Молния — клише ниши; привязка к одному устройству, если ThorHub пойдёт на другие</p>
+</section>
+
+<section>
+  <h2>В. Молот-геймпад</h2>
+  <p class="idea">Боёк молота — это геймпад: крестовина слева, кнопки справа.
+  Самая прямая метафора: «Тор» плюс «игры».</p>
+  <div class="row">
+    <div class="pad light"><div class="tile"><svg width="240" height="240"><use href="#c"/></svg>240</div><div class="tile"><svg width="48" height="48"><use href="#c"/></svg>48</div><div class="tile"><svg width="16" height="16"><use href="#c"/></svg>16</div></div>
+    <div class="pad dark"><div class="tile"><svg width="48" height="48"><use href="#c"/></svg>48</div><div class="tile"><svg width="16" height="16"><use href="#c"/></svg>16</div></div>
+    <div class="pad light mono"><div class="tile"><svg width="48" height="48"><use href="#c"/></svg>моно</div></div>
+  </div>
+  <p class="risk plus"><b>+</b> Понятно с первого взгляда, дружелюбно</p>
+  <p class="risk"><b>−</b> Молот Тора — поле Marvel, риск по товарному знаку; на 16 px крестовина сливается</p>
+</section>
+</main>
+</body>
+</html>
