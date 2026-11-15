@@ -3,6 +3,10 @@
 
 import { PARAMS, COLORS, SMALL } from './params.mjs';
 
+// Адаптивная иконка Android: холст слоя 108 dp, лаунчер показывает центральные 72 dp
+const ANDROID_CANVAS_DP = 108;
+const ANDROID_VISIBLE_DP = 72;
+
 // Координаты округляем до тысячных: в SVG это неразличимо, зато нет длинных хвостов float.
 const f = (v) => Number(v.toFixed(3));
 
@@ -135,27 +139,19 @@ export function mono(variant = 'full') {
 }
 
 // Вариант 5: foreground адаптивной иконки Android.
-// Знак без плашки вписан в безопасный круг диаметром 66/108 холста.
+// Знак без плашки для слоя foreground адаптивной иконки Android
 export function foreground() {
   const p = resolve({});
-  const half = p.strokeW / 2;
-  const R = p.arcR + half;
-  // Габарит знака берём по крайним точкам ствола и внешнего кольца петли.
-  const minX = p.stemX - half + p.offsetX;
-  const maxX = p.arcCx + R + p.offsetX;
-  const minY = Math.min(p.stemTopY - half, p.arcCy - R);
-  const maxY = Math.max(p.stemBottomY + half, p.arcCy + R);
-  const w = maxX - minX;
-  const h = maxY - minY;
-  const safe = (p.size * 66) / 108;
-  // Масштаб по диагонали габарита: углы прямоугольника тоже входят в безопасный круг.
-  const s = safe / Math.hypot(w, h);
-  const cx = (minX + maxX) / 2;
-  const cy = (minY + maxY) / 2;
-  const tx = p.size / 2 - s * cx;
-  const ty = p.size / 2 - s * cy;
+  // Лаунчер показывает центральные 72 из 108 dp, поэтому видимая часть приравнивается к плашке 1024:
+  // Знак выглядит так же, как на квадратной иконке и в Google Play, а не вписывается в безопасный круг вплотную
+  // Безопасный круг 66 dp остаётся пределом — его держит buildAssets --verify
+  const c = p.size / 2;
+  const s = ANDROID_VISIBLE_DP / ANDROID_CANVAS_DP;
+  // Масштаб вокруг центра холста: центр знака остаётся там же, где и на плашке
+  const tx = c - s * c;
+  const ty = c - s * c;
   const body =
-    `<g transform="translate(${f(tx)} ${f(ty)}) scale(${f(s)})">` +
+    `<g transform="translate(${f(tx)} ${f(ty)}) scale(${f(s)}) translate(${f(p.offsetX)} 0)">` +
     `<path d="${stemPath(p)}" fill="${COLORS.mark}"/>` +
     `<path d="${loopPath(p)}" fill="${COLORS.mark}" fill-rule="evenodd"/>` +
     `<circle cx="${f(p.arcCx + p.hubDx)}" cy="${f(p.arcCy)}" r="${f(p.hubR)}" fill="${COLORS.hub}"/>` +
