@@ -148,8 +148,8 @@ export function foreground() {
   const w = maxX - minX;
   const h = maxY - minY;
   const safe = (p.size * 66) / 108;
-  // Масштаб по большей стороне габарита — знак целиком входит в безопасный круг.
-  const s = safe / Math.max(w, h);
+  // Масштаб по диагонали габарита: углы прямоугольника тоже входят в безопасный круг.
+  const s = safe / Math.hypot(w, h);
   const cx = (minX + maxX) / 2;
   const cy = (minY + maxY) / 2;
   const tx = p.size / 2 - s * cx;
