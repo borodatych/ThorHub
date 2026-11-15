@@ -193,6 +193,14 @@ function runChecks(p) {
     );
   }
 
+  // 5б. Ствол симметричен относительно 512, значит поля сверху и снизу равны
+  //     Ловит вывернутый торец ствола: поле при нём остаётся больше 15 %, но ствол короче
+  add(
+    'поля сверху и снизу равны',
+    Math.abs(margins.top - margins.bottom) <= SCALE,
+    `top=${(margins.top / SCALE).toFixed(1)}, bottom=${(margins.bottom / SCALE).toFixed(1)}, допуск 1 px`,
+  );
+
   // 6. Зазор между хабом и внутренним краем петли одинаков со всех сторон.
   //    Слева зазор меряется до правого края ствола, по остальным сторонам — до дыры петли.
   const gap = {};
@@ -266,6 +274,7 @@ function selfTest() {
     { name: 'радиус петли r + 20', patch: { arcR: PARAMS.arcR + 20 } },
     { name: 'хаб сдвинут на 10', patch: { hubDx: 10 } },
     { name: 'offsetX ломает поле 15 %', patch: { offsetX: tightOffset } },
+    { name: 'нижний торец ствола выше на 30', patch: { stemBottomY: PARAMS.stemBottomY - 30 } },
   ];
 
   for (const c of cases) {

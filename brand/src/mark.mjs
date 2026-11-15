@@ -1,7 +1,7 @@
 // Сборка SVG знака ThorHub.
 // Каждая функция возвращает готовую строку SVG с viewBox и заголовком ThorHub.
 
-import { PARAMS, COLORS } from './params.mjs';
+import { PARAMS, COLORS, SMALL } from './params.mjs';
 
 // Координаты округляем до тысячных: в SVG это неразличимо, зато нет длинных хвостов float.
 const f = (v) => Number(v.toFixed(3));
@@ -20,7 +20,8 @@ function stemPath(p) {
   const y1 = f(p.stemBottomY);
   return (
     `M${x0} ${y0} L${x0} ${y1} ` +
-    `A${f(h)} ${f(h)} 0 0 1 ${x1} ${y1} ` +
+    // Нижний торец идёт слева направо через низ — против часовой, sweep 0, иначе полукруг уходит внутрь ствола
+    `A${f(h)} ${f(h)} 0 0 0 ${x1} ${y1} ` +
     `L${x1} ${y0} ` +
     `A${f(h)} ${f(h)} 0 0 0 ${x0} ${y0} Z`
   );
@@ -84,57 +85,51 @@ export function full() {
 
 // Вариант 2: для размеров до 32 px — штрих толще, хаб крупнее, остальное как в full.
 export function small() {
-  const p = resolve({ strokeW: 140, hubR: 64 });
+  const p = resolve(SMALL);
   return svg(
     p.size,
     plate(p, COLORS.bg) + markGroup(p, { mark: COLORS.mark, hub: COLORS.hub }),
   );
 }
 
-// Вариант 3: рисунок под сетку 16×16, только прямоугольники и crispEdges.
-export function tiny() {
-  const cells = [
-    // Плашка: скругление 3 ячейки — предел, при котором углы ещё читаются пикселями.
-    '<rect x="0" y="0" width="16" height="16" rx="3" fill="' + COLORS.bg + '"/>',
-    // Ствол: две ячейки шириной, десять высотой — половина сетки по вертикали.
-    '<rect x="5" y="3" width="2" height="10" fill="' + COLORS.mark + '"/>',
-    // Петля: верх и низ перекладины по три ячейки, чтобы не тоньше ствола.
-    '<rect x="7" y="4" width="3" height="2" fill="' + COLORS.mark + '"/>',
-    '<rect x="7" y="10" width="3" height="2" fill="' + COLORS.mark + '"/>',
-    // Правая колонна петли: две ячейки шириной, шесть высотой.
-    '<rect x="10" y="5" width="2" height="6" fill="' + COLORS.mark + '"/>',
-    // Углы скругляем одиночными пикселями — иначе петля выглядит квадратной.
-    '<rect x="10" y="4" width="1" height="1" fill="' + COLORS.mark + '"/>',
-    '<rect x="10" y="11" width="1" height="1" fill="' + COLORS.mark + '"/>',
-  ];
+// Рисунок под сетку 16×16: ячейки [x, y, w, h], один источник для цветного и монохромного варианта
+const TINY_CELLS = [
+  // Ствол: две ячейки шириной, двенадцать высотой — торчит за петлю на два пикселя сверху и снизу,
+  // Иначе на 16 px руна читается как «D»
+  [5, 2, 2, 12],
+  // Петля: верх и низ перекладины по три ячейки, чтобы не тоньше ствола
+  [7, 4, 3, 2],
+  [7, 10, 3, 2],
+  // Правая колонна петли: две ячейки шириной, шесть высотой
+  [10, 5, 2, 6],
+  // Углы скругляем одиночными пикселями — иначе петля выглядит квадратной
+  [10, 4, 1, 1],
+  [10, 11, 1, 1],
+];
+
+function tinySvg(plateColor, markColor) {
+  // Плашка: скругление 3 ячейки — предел, при котором углы ещё читаются пикселями
+  const plateRect = plateColor ? `<rect x="0" y="0" width="16" height="16" rx="3" fill="${plateColor}"/>` : '';
+  const cells = TINY_CELLS.map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${markColor}"/>`);
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" ` +
-    `shape-rendering="crispEdges">` +
-    `<title>ThorHub</title>` +
+    `shape-rendering="crispEdges"><title>ThorHub</title>` +
+    plateRect +
     cells.join('') +
     `</svg>`
   );
 }
 
-// Вариант 4: монохром без плашки, всё currentColor — для тем и одноцветной печати.
-// variant: 'full' | 'small' | 'tiny'.
+// Вариант 3: рисунок под сетку 16×16, только прямоугольники и crispEdges, хаба нет — на 16 px он не читается
+export function tiny() {
+  return tinySvg(COLORS.bg, COLORS.mark);
+}
+
+// Вариант 4: монохром без плашки, всё currentColor — для тем и одноцветной печати
+// variant: 'full' | 'small' | 'tiny'
 export function mono(variant = 'full') {
-  if (variant === 'tiny') {
-    // Тот же рисунок 16×16, но без плашки: остаются только детали знака.
-    return (
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" ` +
-      `shape-rendering="crispEdges">` +
-      `<title>ThorHub</title>` +
-      `<rect x="5" y="3" width="2" height="10" fill="currentColor"/>` +
-      `<rect x="7" y="4" width="3" height="2" fill="currentColor"/>` +
-      `<rect x="7" y="10" width="3" height="2" fill="currentColor"/>` +
-      `<rect x="10" y="5" width="2" height="6" fill="currentColor"/>` +
-      `<rect x="10" y="4" width="1" height="1" fill="currentColor"/>` +
-      `<rect x="10" y="11" width="1" height="1" fill="currentColor"/>` +
-      `</svg>`
-    );
-  }
-  const p = variant === 'small' ? resolve({ strokeW: 140, hubR: 64 }) : resolve({});
+  if (variant === 'tiny') return tinySvg(null, 'currentColor');
+  const p = variant === 'small' ? resolve(SMALL) : resolve({});
   // Хаб остаётся отдельным кругом того же цвета: зазор вокруг него не нужен.
   return svg(p.size, markGroup(p, { mark: 'currentColor', hub: 'currentColor' }));
 }
