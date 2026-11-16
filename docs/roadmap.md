@@ -24,7 +24,8 @@
   Упавший хост на 10 минут уходит в конец очереди (16.11.2026), в зеркало добавлены файлы, зашитые в код (gamescope, rgschost, eahost, extras и др.)
 - [x] **Gamescope под своим ID** — ✅ (16.11.2026, app next) при установке пакета gamescope C-строки путей `app.gamenative` переписываются на свой пакет: иначе Xwayland не находит XKB
 - [x] **Proton с меткой сборки** — ✅ (16.11.2026, app next) `proton-11.0-2-arm64ec-thorhub` распознаётся, а не уходит на встроенный Wine; evshim получает каталог геймпадов своего пакета
-- [ ] **Запуск игр на Thor** — Hogwarts Legacy, Shadow of Mordor, Watch_Dogs 2, остальные из `/sdcard/Games/Steam`
+- [x] **Hogwarts Legacy на Thor** — ✅ (16.11.2026) доходит до меню на русском: эмулятор Steam с билетом приложения, пресет FEX DENUVO, обёртка vkd3d (настройки контейнера выставлены вручную ⚠ перепроверить)
+- [ ] **Запуск остальных игр на Thor** — Mordor, Watch_Dogs 2, Witcher 3 и др. установлены, ждут принятия EULA владельцем
 - [ ] **PR в GameNative** — определение моста по файлу, `WINE_ANDROID_IMAGEFS`, перебор зеркал
 
 ## Proton (proton-wine, ветка thorhub/steamutils011)
