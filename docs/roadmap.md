@@ -26,7 +26,7 @@
 - [x] **Proton с меткой сборки** — ✅ (16.11.2026, app next) `proton-11.0-2-arm64ec-thorhub` распознаётся, а не уходит на встроенный Wine; evshim получает каталог геймпадов своего пакета
 - [x] **Hogwarts Legacy на Thor** — ✅ (16.11.2026) доходит до меню на русском: эмулятор Steam с билетом приложения, пресет FEX DENUVO, обёртка vkd3d (настройки контейнера выставлены вручную ⚠ перепроверить)
 - [x] **Heroes of Might and Magic: Olden Era на Thor** — ✅ (16.11.2026) главное меню на русском, Proton 11.0-2 (9) по умолчанию докачан через зеркало
-- [ ] **Запуск остальных игр на Thor** — Shadow Tactics и Aiko’s Choice (32 бит, Unity 5.4) висят на заставке после создания графического устройства; Mordor, Watch_Dogs 2, Witcher 3 и др. установлены, ждут принятия EULA владельцем
+- [ ] **Запуск остальных игр на Thor** — Shadow Tactics и Aiko’s Choice (32 бит, Unity 5.4) висят на заставке после создания графического устройства; Mordor, Watch_Dogs 2, Witcher 3, Atomic Heart установлены, ждут принятия EULA владельцем
 - [ ] **PR в GameNative** — определение моста по файлу, `WINE_ANDROID_IMAGEFS`, перебор зеркал
 
 ## Proton (proton-wine, ветка thorhub/steamutils011)
