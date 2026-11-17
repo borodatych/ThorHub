@@ -42,7 +42,7 @@
 - [ ] **Origins** — после входа в Ubisoft проверить пресет FEX DENUVO (раньше падал в acorigins+0xe2a4009)
 - [ ] **Mass Effect LE** — ждёт решения владельца по EULA EA
 - [ ] **Вход в лаунчеры из файла учётных данных** — путь к файлу общий или на лаунчер, без ручного ввода (идея, план не одобрен)
-- [ ] **Патч шима в GameNative** — Xwayland на драйвере пакета; отправка только с разрешения владельца
+- [x] **Патч шима в GameNative** — ✅ (17.11.2026) PR GameNative/gamenative-drm#70: Xwayland на драйвере пакета; после вливания и нового payload'а overlay станет не нужен
 - [ ] **PR в GameNative** — определение моста по файлу, `WINE_ANDROID_IMAGEFS`, перебор зеркал
 
 ## Proton (proton-wine, ветка thorhub/steamutils011)
